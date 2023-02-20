@@ -38,9 +38,13 @@ const TodoItem = ({ activities, setOnDelete, setActivity }) => {
             year: "numeric",
           })}`}
         </p>
-        <button data-cy="activity-item-delete-button" onClick={handlerDelete}>
+        <div
+          data-cy="activity-item-delete-button"
+          className="cursor-pointer"
+          onClick={handlerDelete}
+        >
           <Trash2 color="#888888" />
-        </button>
+        </div>
       </div>
     </div>
   );
