@@ -32,12 +32,12 @@ const TodoItem = ({ activities, setOnDelete, setActivity }) => {
         {activities.title}
       </h1>
       <div className="flex justify-between items-center text-[#888888]">
-        <span data-cy="activity-item-date" className="text-[14px]">
+        <p data-cy="activity-item-date" className="text-[14px]">
           {`${convertDate.getDate()} ${convertDate.toLocaleString("default", {
             month: "long",
             year: "numeric",
           })}`}
-        </span>
+        </p>
         <button data-cy="activity-item-delete-button" onClick={handlerDelete}>
           <Trash2 color="#888888" />
         </button>

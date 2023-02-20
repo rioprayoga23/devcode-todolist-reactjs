@@ -14,7 +14,12 @@ const ModalDelete = ({ isOpen, setIsOpen, activity, deleteActivity }) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment} data-cy="modal-delete">
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={closeModal}
+          data-cy="modal-delete"
+        >
           <Transition.Child as={Fragment}>
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
