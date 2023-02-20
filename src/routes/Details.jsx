@@ -2,6 +2,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useState } from "react";
 import { Check, ChevronLeft, Edit2, Plus } from "react-feather";
 import { Link, useParams } from "react-router-dom";
+import Alert from "../components/Alert";
 import Empty from "../components/Empty";
 import { AZ, Newest, Oldest, Sort, Unfinished, ZA } from "../components/Icon";
 import ListTodo from "../components/ListTodo";
@@ -18,6 +19,7 @@ const Details = () => {
   const [onDelete, setOnDelete] = useState(false);
   const [onEdit, setOnEdit] = useState(false);
   const [onOpenModal, setOnOpenModal] = useState(false);
+  const [onAlert, setOnAlert] = useState(false);
   const [filter, setFilter] = useState("Terbaru");
 
   const [title, setTitle] = useState(activity.title || "");
@@ -62,6 +64,7 @@ const Details = () => {
     await http().delete(`todo-items/${id}`);
     const data = todos.filter((e) => e.id !== id);
     setTodos(data);
+    setOnAlert(true);
   };
 
   const updateTodo = async (id, title, priority) => {
@@ -282,6 +285,7 @@ const Details = () => {
         activity={todo}
         deleteActivity={deleteTodo}
       />
+      <Alert isOpen={onAlert} setIsOpen={setOnAlert} />
     </div>
   );
 };
