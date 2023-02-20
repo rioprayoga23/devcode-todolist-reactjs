@@ -23,10 +23,13 @@ const TodoItem = ({ activities, setOnDelete, setActivity }) => {
   const convertDate = new Date(activities.created_at);
 
   return (
-    <div data-cy="activity-item">
+    <div
+      data-cy="activity-item"
+      className="bg-[#FFFFFF] rounded-[12px] shadow-lg p-[25px]"
+    >
       <div
         onClick={handlerDetail}
-        className="flex flex-col h-[234px] w-[235px] justify-between p-[25px] rounded-[12px] shadow-lg cursor-pointer bg-[#FFFFFF] aspect-square"
+        className="flex flex-col h-[180px] w-[full] justify-between cursor-pointer aspect-square"
       >
         <h1 data-cy="activity-item-title" className="font-bold text-lg">
           {activities.title}
