@@ -12,12 +12,10 @@ const TodoItem = ({ activities, setOnDelete, setActivity }) => {
       tag: "activity",
     });
     setOnDelete(true);
-    // e.stopPropagation();
   };
 
   const handlerDetail = (e) => {
     navigate(`/detail/${activities.id}`);
-    // e.stopPropagation();
   };
 
   const convertDate = new Date(activities.created_at);
