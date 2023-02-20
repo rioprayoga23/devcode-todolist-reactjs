@@ -31,20 +31,17 @@ const TodoItem = ({ activities, setOnDelete, setActivity }) => {
       <h1 data-cy="activity-item-title" className="font-bold text-lg">
         {activities.title}
       </h1>
-      <div className="flex justify-between items-center text-[#888888]">
-        <p data-cy="activity-item-date" className="text-[14px]">
-          {`${convertDate.getDate()} ${convertDate.toLocaleString("default", {
-            month: "long",
-            year: "numeric",
-          })}`}
-        </p>
-        <div
-          data-cy="activity-item-delete-button"
-          className="cursor-pointer"
-          onClick={handlerDelete}
-        >
-          <Trash2 color="#888888" />
-        </div>
+      <div className="mt-auto flex justify-between">
+        <p
+          data-cy="activity-item-date"
+          className="text-sm text-[#888888]"
+        >{`${convertDate.getDate()} ${convertDate.toLocaleString("default", {
+          month: "long",
+          year: "numeric",
+        })}`}</p>
+        <button data-cy="activity-item-delete-button" onClick={handlerDelete}>
+          <Trash2 />
+        </button>
       </div>
     </div>
   );
