@@ -29,7 +29,7 @@ const TodoItem = ({ activities, setOnDelete, setActivity }) => {
     >
       <div
         onClick={handlerDetail}
-        className="flex flex-col h-[180px] w-[full] justify-between cursor-pointer aspect-square"
+        className="flex flex-col h-[180px] w-[full] justify-between cursor-pointer"
       >
         <h1 data-cy="activity-item-title" className="font-bold text-lg">
           {activities.title}
