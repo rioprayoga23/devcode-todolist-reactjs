@@ -12,25 +12,26 @@ const TodoItem = ({ activities, setOnDelete, setActivity }) => {
       tag: "activity",
     });
     setOnDelete(true);
-    e.stopPropagation();
+    // e.stopPropagation();
   };
 
   const handlerDetail = (e) => {
     navigate(`/detail/${activities.id}`);
-    e.stopPropagation();
+    // e.stopPropagation();
   };
 
   const convertDate = new Date(activities.created_at);
 
   return (
-    <div
-      data-cy="activity-item"
-      onClick={handlerDetail}
-      className="flex flex-col h-[234px] w-[235px] justify-between p-[25px] rounded-[12px] shadow-lg cursor-pointer bg-[#FFFFFF] aspect-square"
-    >
-      <h1 data-cy="activity-item-title" className="font-bold text-lg">
-        {activities.title}
-      </h1>
+    <div data-cy="activity-item">
+      <div
+        onClick={handlerDetail}
+        className="flex flex-col h-[234px] w-[235px] justify-between p-[25px] rounded-[12px] shadow-lg cursor-pointer bg-[#FFFFFF] aspect-square"
+      >
+        <h1 data-cy="activity-item-title" className="font-bold text-lg">
+          {activities.title}
+        </h1>
+      </div>
       <div className="mt-auto flex justify-between">
         <p
           data-cy="activity-item-date"
