@@ -250,7 +250,7 @@ const Details = () => {
         </div>
       </div>
 
-      {!todos ? (
+      {!todos.length ? (
         <Empty data="todo-empty-state" />
       ) : (
         <div className="flex flex-col gap-5 my-10">

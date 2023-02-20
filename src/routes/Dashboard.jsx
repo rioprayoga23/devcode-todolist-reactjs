@@ -64,7 +64,7 @@ const Dashboard = () => {
         <div className="w-full flex justify-center">
           <Spinner />
         </div>
-      ) : !activities ? (
+      ) : !activities.length ? (
         <Empty dashboard={true} data="activity-empty-state" />
       ) : (
         <div className="grid grid-cols-4 gap-4 pb-[43px]">
