@@ -15,7 +15,12 @@ const Alert = ({ isOpen, setIsOpen }) => {
         as={Fragment}
         data-cy="modal-information"
       >
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={closeModal}
+          data-cy="modal-information"
+        >
           <Transition.Child as={Fragment}>
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
