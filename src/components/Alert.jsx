@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import alertIcon from "../assets/modal-information-icon.svg";
+import { AlertIcon } from "./Icon";
 
 const Alert = ({ isOpen, setIsOpen }) => {
   const closeModal = () => {
@@ -31,7 +31,7 @@ const Alert = ({ isOpen, setIsOpen }) => {
                 <Dialog.Panel className="w-[490px] h-[58px] px-[30px] overflow-hidden rounded-2xl bg-white shadow-xl">
                   <div className="flex h-full items-center gap-3">
                     <div data-cy="modal-information-icon">
-                      <img src={alertIcon} alt="alert-icon" />
+                      <AlertIcon />
                     </div>
                     <p>Activity berhasil dihapus</p>
                   </div>

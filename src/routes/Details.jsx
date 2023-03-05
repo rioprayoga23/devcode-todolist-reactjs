@@ -1,14 +1,19 @@
-import { Listbox, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useState } from "react";
-import { Check, ChevronLeft, Edit2, Plus } from "react-feather";
 import { Link, useParams } from "react-router-dom";
+import http from "../helpers/http";
+import { onSort } from "../helpers/filter";
+
+import { Listbox, Transition } from "@headlessui/react";
+import { Check, ChevronLeft, Edit2, Plus } from "react-feather";
+
 import Alert from "../components/Alert";
 import Empty from "../components/Empty";
 import { AZ, Newest, Oldest, Sort, Unfinished, ZA } from "../components/Icon";
 import ListTodo from "../components/ListTodo";
 import ModalDelete from "../components/ModalDelete";
 import ModalTodo from "../components/ModalTodo";
-import http from "../helpers/http";
+import Spinner from "../components/Spinner";
+import { priority } from "../helpers/priority";
 
 const Details = () => {
   const { id } = useParams();
@@ -20,8 +25,8 @@ const Details = () => {
   const [onEdit, setOnEdit] = useState(false);
   const [onOpenModal, setOnOpenModal] = useState(false);
   const [onAlert, setOnAlert] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("Terbaru");
-
   const [title, setTitle] = useState(activity.title || "");
 
   const getActivity = async () => {
@@ -58,6 +63,7 @@ const Details = () => {
   const getTodos = async () => {
     const { data } = await http().get(`/todo-items?activity_group_id=${id}`);
     setTodos(data.data);
+    setIsLoading(false);
   };
 
   const deleteTodo = async (id) => {
@@ -91,45 +97,6 @@ const Details = () => {
     setOnOpenModal(true);
   };
 
-  const priority = [
-    {
-      item: "very-high",
-      label: "Very High",
-      color: "bg-[#ED4C5C]",
-    },
-    { item: "high", label: "High", color: "bg-[#F8A541]" },
-    { item: "normal", label: "Medium", color: "bg-[#00A790]" },
-    { item: "low", label: "Low", color: "bg-[#428BC1]" },
-
-    {
-      item: "very-low",
-      label: "Very Low",
-      color: "bg-[#8942C1]",
-    },
-  ];
-
-  const filterTodos = React.useMemo(() => {
-    let _todos = todos?.todo_items;
-
-    if (filter === "Terbaru") {
-      _todos = todos?.sort((a, b) => b.id - a.id);
-    }
-    if (filter === "Terlama") {
-      _todos = todos?.sort((a, b) => a.id - b.id);
-    }
-    if (filter === "A - Z") {
-      _todos = todos?.sort((a, b) => a.title.localeCompare(b.title));
-    }
-    if (filter === "Z - A") {
-      _todos = todos?.sort((a, b) => b.title.localeCompare(a.title));
-    }
-    if (filter === "Belum selesai") {
-      _todos = todos?.sort((a, b) => b.is_active - a.is_active);
-    }
-
-    return _todos;
-  }, [filter, todos]);
-
   const activityFilters = [
     {
       label: "Terbaru",
@@ -157,6 +124,8 @@ const Details = () => {
       data: "sort-unfinished",
     },
   ];
+
+  const filterTodos = onSort(filter, todos);
 
   useEffect(() => {
     getActivity();
@@ -253,14 +222,18 @@ const Details = () => {
         </div>
       </div>
 
-      {!todos.length ? (
+      {isLoading ? (
+        <div className="flex justify-center py-10">
+          <Spinner />
+        </div>
+      ) : !todos.length ? (
         <Empty data="todo-empty-state" />
       ) : (
         <div className="flex flex-col gap-5 my-10">
-          {filterTodos.map((todo) => (
+          {filterTodos.map((item) => (
             <ListTodo
-              key={todo.id}
-              todo={todo}
+              key={item.id}
+              todo={item}
               getTodos={getTodos}
               handlerDeleteTodo={handlerDeleteTodo}
               handlerEditTodo={handlerEditTodo}

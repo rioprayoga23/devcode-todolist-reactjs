@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const TodoItem = ({ activities, setOnDelete, setActivity }) => {
   const navigate = useNavigate();
 
-  const handlerDelete = (e) => {
+  const handlerDelete = () => {
     setActivity({
       id: activities.id,
       title: activities.title,

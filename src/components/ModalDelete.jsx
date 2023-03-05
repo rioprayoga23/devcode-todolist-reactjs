@@ -1,6 +1,6 @@
-import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import modalDeleteIcon from "../assets/modal-delete-icon.svg";
+import { Dialog, Transition } from "@headlessui/react";
+import { DeleteIcon } from "./Icon";
 
 const ModalDelete = ({ isOpen, setIsOpen, activity, deleteActivity }) => {
   const closeModal = () => {
@@ -32,7 +32,7 @@ const ModalDelete = ({ isOpen, setIsOpen, activity, deleteActivity }) => {
                     data-cy="modal-delete-icon"
                     className="w-full flex justify-center mb-[51px]"
                   >
-                    <img src={modalDeleteIcon} alt="" />
+                    <DeleteIcon />
                   </div>
 
                   <div
