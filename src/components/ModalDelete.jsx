@@ -2,13 +2,13 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { DeleteIcon } from "./Icon";
 
-const ModalDelete = ({ isOpen, setIsOpen, activity, deleteActivity }) => {
+const ModalDelete = ({ isOpen, setIsOpen, activity, deleteActivityAction }) => {
   const closeModal = () => {
     setIsOpen(false);
   };
 
-  const handlerDelete = async (id) => {
-    deleteActivity(id);
+  const deleteHandle = async (id) => {
+    deleteActivityAction(id);
     setIsOpen(false);
   };
   return (
@@ -55,7 +55,7 @@ const ModalDelete = ({ isOpen, setIsOpen, activity, deleteActivity }) => {
                     </button>
                     <button
                       data-cy="modal-delete-confirm-button"
-                      onClick={() => handlerDelete(activity.id)}
+                      onClick={() => deleteHandle(activity.id)}
                       className="bg-[#ED4C5C] px-[43px] py-[13px] rounded-full text-white"
                     >
                       Hapus

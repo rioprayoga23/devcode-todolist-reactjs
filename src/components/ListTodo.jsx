@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import http from "../helpers/http";
 import { Edit2, Trash2 } from "react-feather";
 
-const ListTodo = ({ todo, getTodos, handlerDeleteTodo, handlerEditTodo }) => {
+import { useUpdateTodosMutation } from "../lib/reducer/todosApi";
+
+const ListTodo = ({ todo, handlerDeleteTodo, handlerEditTodo }) => {
+  const [updateTodos] = useUpdateTodosMutation();
   const iconPriority = clsx("rounded-full w-3 h-3", {
     "bg-[#ED4C5C]": todo.priority === "very-high",
     "bg-[#F8A541]": todo.priority === "high",
@@ -29,10 +31,10 @@ const ListTodo = ({ todo, getTodos, handlerDeleteTodo, handlerEditTodo }) => {
             className="w-5 h-5 cursor-pointer"
             onChange={async (e) => {
               setChecked(!checked);
-              await http().patch(`todo-items/${e.target.value}`, {
+              updateTodos({
+                id: e.target.value,
                 is_active: todo.is_active === 1 ? false : true,
               });
-              getTodos();
             }}
           />
           <div

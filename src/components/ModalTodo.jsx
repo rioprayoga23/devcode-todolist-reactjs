@@ -1,10 +1,10 @@
-import { Dialog, Listbox, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
+import { Dialog, Listbox, Transition } from "@headlessui/react";
 import { Check, ChevronDown, X } from "react-feather";
 
 const ModalTodo = ({
-  isOpen,
-  setIsOpen,
+  onOpenModal,
+  setOnOpenModal,
   priorities,
   createTodo,
   updateTodo,
@@ -14,7 +14,7 @@ const ModalTodo = ({
   const [selected, setSelected] = useState({});
 
   const closeModal = () => {
-    setIsOpen(false);
+    setOnOpenModal(false);
     setTempData({});
   };
 
@@ -24,7 +24,7 @@ const ModalTodo = ({
     } else {
       createTodo(selected);
     }
-    setIsOpen(false);
+    setOnOpenModal(false);
   };
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const ModalTodo = ({
 
   return (
     <>
-      <Transition appear show={isOpen} as={Fragment} data-cy="modal-add">
+      <Transition appear show={onOpenModal} as={Fragment} data-cy="modal-add">
         <Dialog
           as="div"
           className="relative z-10"
