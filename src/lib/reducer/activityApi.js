@@ -11,6 +11,9 @@ export const activityApi = createApi({
       query: () => "/activity-groups?email=rioprayoga23@gmail.com",
       providesTags: ["ACTIVITY"],
     }),
+    getOneActivity: builder.query({
+      query: (id) => `/activity-groups/${id}`,
+    }),
     createActivity: builder.mutation({
       query: (activity) => ({
         url: "/activity-groups",
@@ -39,6 +42,7 @@ export const activityApi = createApi({
 
 export const {
   useGetActivityQuery,
+  useGetOneActivityQuery,
   useCreateActivityMutation,
   useDeleteActivityMutation,
   useUpdateActivityMutation,

@@ -15,9 +15,7 @@ const TodoItem = ({ activities, setOnDelete, setActivity }) => {
   };
 
   const handlerDetail = () => {
-    navigate(`/detail/${activities.id}`, {
-      state: { title: activities.title },
-    });
+    navigate(`/detail/${activities.id}`);
   };
 
   const convertDate = new Date(activities.created_at);

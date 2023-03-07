@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 
 import { onSort } from "../helpers/filter";
@@ -16,7 +16,11 @@ import Spinner from "../components/Spinner";
 import Header from "../components/Header";
 import { AZ, Newest, Oldest, Sort, Unfinished, ZA } from "../components/Icon";
 
-import { useUpdateActivityMutation } from "../lib/reducer/activityApi";
+import {
+  activityApi,
+  useGetOneActivityQuery,
+  useUpdateActivityMutation,
+} from "../lib/reducer/activityApi";
 import {
   useCreateTodosMutation,
   useDeleteTodosMutation,
@@ -26,7 +30,6 @@ import {
 
 const Details = () => {
   const { id } = useParams();
-  const { state } = useLocation();
 
   const [todo, setTodo] = useState({});
   const [tempData, setTempData] = useState({});
@@ -35,13 +38,22 @@ const Details = () => {
   const [onOpenModal, setOnOpenModal] = useState(false);
   const [onAlert, setOnAlert] = useState(false);
   const [filter, setFilter] = useState("Terbaru");
-  const [title, setTitle] = useState(state.title);
 
   const [updateActivity] = useUpdateActivityMutation();
   const [createTodos] = useCreateTodosMutation();
   const [deleteTodos] = useDeleteTodosMutation();
   const [updateTodosTitle] = useUpdateTodosTitleMutation();
-  let { data: todos, isLoading } = useGetTodosQuery(id);
+  const [title, setTitle] = useState("");
+
+  const { data: todos, isLoading } = useGetTodosQuery(id);
+  const { data: activity, refetch } = useGetOneActivityQuery(id);
+
+  useEffect(() => {
+    if (activity) {
+      setTitle(activity?.title);
+    }
+    refetch();
+  }, [activity]);
 
   const onCLickTitle = () => {
     setOnEdit(true);
